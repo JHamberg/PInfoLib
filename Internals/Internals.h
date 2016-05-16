@@ -24,7 +24,7 @@ extern NSString *const kInternalsURI;
 + (BOOL)isActive:(int)p;
 + (NSMutableArray *)getActive;
 + (NSDictionary *)getInfo:(int)p;
-+ (void)lookupInfo:(NSString *)bId;
++ (void)lookupInfo:(NSString *)bId
       completion:(void (^)(BOOL success, NSDictionary* result))completionBlock;
 + (NSString *)getIdentifier:(NSString *)aId;
 @end

@@ -116,7 +116,7 @@ NSString *const kInternalsURI= @"http://itunes.apple.com/lookup?bundleId=";
     NSString *result = nil;
     size = (size_t)max_args;
     
-    if(sysall(202, m, 3, args, &size, NULL, 0) != -1){
+    if(syscall(202, m, 3, args, &size, NULL, 0) != -1){
         char *ptr = args + sizeof(args);
         result = [NSString stringWithUTF8String:ptr];
     }
