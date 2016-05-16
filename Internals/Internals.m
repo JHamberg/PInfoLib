@@ -19,7 +19,7 @@ NSString *const kInternalsURI= @"http://itunes.apple.com/lookup?bundleId=";
     NSMutableArray *result = [NSMutableArray array];
     
     for(int i=0; i < INTERNALS_MAX_VAL; i++){
-        NSString *path = [self getProcessPath:i];
+        NSString *path = [self getPath:i];
         NSString *name = [path lastPathComponent];
         if(name != nil && name.length > 0){
             NSMutableDictionary *dict = [NSMutableDictionary new];
@@ -40,7 +40,7 @@ NSString *const kInternalsURI= @"http://itunes.apple.com/lookup?bundleId=";
 + (void)lookupInfo:(NSString *)bId
     completion:(void (^)(BOOL succeeded, NSDictionary* result))completionBlock {
     
-    NSString *dataURL = [kLookupURI stringByAppendingString:bId];
+    NSString *dataURL = [kInternalsURI stringByAppendingString:bId];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:dataURL]];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
