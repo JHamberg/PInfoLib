@@ -80,7 +80,7 @@ NSString *const kInternalsURI= @"http://itunes.apple.com/lookup?bundleId=";
 
 + (NSDictionary *) getInfo:(int)p {
     uint32_t len;
-    struct INTERNALS_BLOB header = {0};
+    struct InternalsBlob header = {0};
     NSMutableData *data;
     
     syscall(169, p, 7, &header, sizeof(header));

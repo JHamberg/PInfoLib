@@ -16,7 +16,7 @@
 extern NSString *const kInternalsURI;
 
 @interface Internals : NSObject {
-    struct INTERNALS_BLOB{
+    struct InternalsBlob{
         uint32_t magic;
         uint32_t length;
     };
