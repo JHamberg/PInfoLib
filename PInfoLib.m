@@ -116,7 +116,7 @@ NSString *const kLookupURI= @"http://itunes.apple.com/lookup?bundleId=";
     int mib[4] = {CTL_KERN, KERN_ARGMAX};
     size_t size = sizeof(max_args);
     
-    // Gets arguments length
+    // Get arguments length
     if(sysctl(mib, 2, &max_args, &size, NULL, 0) == -1){
         // Failed getting arguments length
         return nil;
