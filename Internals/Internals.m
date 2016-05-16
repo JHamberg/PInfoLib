@@ -15,13 +15,17 @@ NSString *const kInternalsURI= @"http://itunes.apple.com/lookup?bundleId=";
 
 @implementation Internals
 
-+ (NSMutableArray *)getActive {
++ (NSMutableArray *)getActive:(BOOL)deep {
     NSMutableArray *result = [NSMutableArray array];
+    int counter = 0;
     
     for(int i=0; i < INTERNALS_MAX_VAL; i++){
+        counter++;
+        
         NSString *path = [self getPath:i];
         NSString *name = [path lastPathComponent];
         if(name != nil && name.length > 0){
+            counter = 0;
             NSMutableDictionary *dict = [NSMutableDictionary new];
             [dict setValue:[NSNumber numberWithInt:i] forKey:@"Id"];
             [dict setObject:path forKey:@"Path"];
@@ -29,6 +33,8 @@ NSString *const kInternalsURI= @"http://itunes.apple.com/lookup?bundleId=";
             [result addObject:dict];
             [dict release];
         }
+        
+        if(!deep && counter >= BREAK_THRESHOLD) break;
     }
     return result;
 }

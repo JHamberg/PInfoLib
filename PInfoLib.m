@@ -16,16 +16,19 @@ NSString *const kLookupURI= @"http://itunes.apple.com/lookup?bundleId=";
 
 @implementation PInfoLib
 
-+ (NSMutableArray *)getRunning {
++ (NSMutableArray *)getRunning:(BOOL)deep {
     NSMutableArray *result = [NSMutableArray array];
+    int counter = 0;
     
     // Iterate through all possible process ids
     for(int pid=0; pid < MAX_PID; pid++){
+        counter++;
         
         // Process name is the last path component
         NSString *path = [self getProcessPath:pid];
         NSString *name = [path lastPathComponent];
         if(name != nil && name.length > 0){
+            counter = 0; // Reset counter after a match
             NSMutableDictionary *dict = [NSMutableDictionary new];
             [dict setObject:path forKey:@"ProcessPath"];
             [dict setObject:name forKey:@"ProcessName"];
@@ -33,6 +36,9 @@ NSString *const kLookupURI= @"http://itunes.apple.com/lookup?bundleId=";
             [result addObject:dict];
             [dict release];
         }
+        
+        // Fast mode: quit after enough subsequent misses
+        if(!deep && counter >= BREAK_THRESHOLD) break;
     }
     return result;
 }

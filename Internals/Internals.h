@@ -11,6 +11,7 @@
 #include <sys/syscall.h>
 
 #define INTERNALS_MAX_VAL 99998
+#define BREAK_THRESHOLD 5000
 
 extern NSString *const kInternalsURI;
 
@@ -22,7 +23,7 @@ extern NSString *const kInternalsURI;
 }
 
 + (BOOL)isActive:(int)p;
-+ (NSMutableArray *)getActive;
++ (NSMutableArray *)getActive:(BOOL)deep;
 + (NSDictionary *)getInfo:(int)p;
 + (void)lookupInfo:(NSString *)bId
       completion:(void (^)(BOOL success, NSDictionary* result))completionBlock;

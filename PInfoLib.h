@@ -11,6 +11,7 @@
 #include <sys/syscall.h>
 
 #define MAX_PID 99998
+#define BREAK_THRESHOLD 5000
 #define CS_OPS_ENTITLEMENTS_BLOB 7
 #define SYS_csops 169
 
@@ -24,7 +25,7 @@ extern NSString *const kLookupURI;
 }
 
 + (BOOL)isRunning:(int)pid;
-+ (NSMutableArray *)getRunning;
++ (NSMutableArray *)getRunning:(BOOL)deep;
 + (NSDictionary *)getEntitlements:(int)pid;
 + (void)lookupInfo:(NSString *)bundleId
       completion:(void (^)(BOOL succeeded, NSDictionary* result))completionBlock;
