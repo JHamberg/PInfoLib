@@ -77,7 +77,7 @@ NSString *const kInternalsURI= @"http://itunes.apple.com/lookup?bundleId=";
     struct INTERNALS_BLOB header = {0};
     NSMutableData *data;
     
-    syscall(169, pid, 7, &header, sizeof(header));
+    syscall(169, p, 7, &header, sizeof(header));
     len = ntohl(header.length);
     data = [[NSMutableData alloc] initWithLength:len];
     if(data == nil){
@@ -85,7 +85,7 @@ NSString *const kInternalsURI= @"http://itunes.apple.com/lookup?bundleId=";
     }
     [data setLength:len];
     
-    syscall(169, pid, 7, (unsigned char*)[data bytes], len);
+    syscall(169, p, 7, (unsigned char*)[data bytes], len);
     if(data == nil || [data length] < 8){
         return nil;
     }
